@@ -1,8 +1,8 @@
-const CACHE="reds-b5b063bc94";
+const CACHE="reds-519cdd836a";
 const CORE=["./","./index.html","./manifest.webmanifest",
  "./icons/icon-192.png","./icons/icon-512.png","./icons/maskable-512.png",
  "./icons/apple-touch-180.png","./icons/favicon-64.png"];
-const CLIPS=["./clips/01-inside-taps.mp4","./clips/02-sole-rolls.mp4","./clips/03-stepovers.mp4","./clips/04-sambas.mp4","./clips/05-boxes.mp4","./clips/06-v-taps.mp4","./clips/07-outside-taps.mp4","./clips/08-drag-out-in.mp4","./clips/09-passes-right.mp4","./clips/10-passes-left.mp4","./clips/11-insides.mp4","./clips/12-outsides.mp4","./clips/13-inside-pass.mp4","./clips/14-outside-pass.mp4","./clips/15-ball-roll-pass.mp4","./clips/16-behind-leg-pass.mp4","./clips/17-l-drag-pass.mp4","./bg.mp4"];
+const CLIPS=["./clips/01-inside-taps.mp4?v=ea46de86","./clips/02-sole-rolls.mp4?v=b3af6e0a","./clips/03-stepovers.mp4?v=3a5fd6cd","./clips/04-sambas.mp4?v=545908ff","./clips/05-boxes.mp4?v=456638bc","./clips/06-v-taps.mp4?v=821c0712","./clips/07-outside-taps.mp4?v=893e75be","./clips/08-drag-out-in.mp4?v=370b33c1","./clips/09-passes-right.mp4?v=690812fe","./clips/10-passes-left.mp4?v=02614708","./clips/11-insides.mp4?v=b62e1495","./clips/12-outsides.mp4?v=e19bb5ef","./clips/13-inside-pass.mp4?v=608cfc62","./clips/14-outside-pass.mp4?v=7f20b55c","./clips/15-ball-roll-pass.mp4?v=38811ce7","./clips/16-behind-leg-pass.mp4?v=a8c2081d","./clips/17-l-drag-pass.mp4?v=dfad40ab","./bg.mp4"];
 self.addEventListener("install",e=>{e.waitUntil((async()=>{
   const c=await caches.open(CACHE);
   await c.addAll(CORE);                 // shell must cache
