@@ -221,7 +221,7 @@ html{--recoil:.675}
 <div class="ovl cd" id="countdown">
   <div class="cd-inner">
     <div class="cd-label" id="cdLabel">Get set</div>
-    <div class="cd-num" id="cdNum">10</div>
+    <div class="cd-num" id="cdNum">5</div>
     <div class="cd-skip">Tap anywhere to skip</div>
   </div>
 </div>
@@ -229,7 +229,7 @@ html{--recoil:.675}
   <div class="brk-kick" id="brkKick">Phase 2</div>
   <span class="brk-ic ic" id="brkIcon"></span>
   <div class="brk-name" id="brkName">Dynamic Ball Control</div>
-  <div class="brk-hint">Tap to start the countdown</div>
+  <div class="brk-hint">Tap right to start &middot; tap left to go back</div>
 </div>
 <div class="tapwash washL" id="washL"></div>
 <div class="tapwash washR" id="washR"></div>
@@ -278,7 +278,7 @@ function showStart(){stopConfetti();hideOverlays();$("#start").classList.add("op
 let cdId=null,cdTarget=0;
 function countdown(target,label){stopConfetti();hideOverlays();cdTarget=target;
   const ov=$("#countdown");ov.classList.add("open");$("#cdLabel").textContent=label||"Get set";
-  let n=10;const num=$("#cdNum");
+  let n=5;const num=$("#cdNum");
   const inner=ov.querySelector(".cd-inner");
   function tick(){num.textContent=n;num.style.animation="none";void num.offsetWidth;num.style.animation="cdkick .5s cubic-bezier(.18,1.7,.3,1)";
     inner.style.animation="none";void inner.offsetWidth;inner.style.animation="cdshake .42s ease";
@@ -286,8 +286,8 @@ function countdown(target,label){stopConfetti();hideOverlays();cdTarget=target;
   tick();clearInterval(cdId);
   cdId=setInterval(()=>{n--;if(n<=0){clearInterval(cdId);cdId=null;showDrill(cdTarget);}else tick();},1000);}
 function skipCountdown(){if(cdId){clearInterval(cdId);cdId=null;}showDrill(cdTarget);}
-let brkT=null,brkTarget=0,brkPhase=0;
-function breaker(phase,target){stopConfetti();hideOverlays();brkTarget=target;brkPhase=phase;
+let brkT=null,brkTarget=0,brkPhase=0,brkAt=0;
+function breaker(phase,target){stopConfetti();hideOverlays();brkTarget=target;brkPhase=phase;brkAt=Date.now();
   const ph=PHASES[phase],ov=$("#breaker");ov.style.setProperty("--accent",ph.color);
   $("#brkKick").textContent="Phase "+phase;$("#brkName").textContent=ph.name;$("#brkIcon").innerHTML=ICON(DRILLS[target].icon);
   ov.classList.add("open");clearTimeout(brkT);
@@ -350,7 +350,9 @@ function markMenu(){document.querySelectorAll(".mcard").forEach(c=>c.classList.t
 $("#startBtn").onclick=()=>{if(navigator.vibrate)navigator.vibrate(30);countdown(0,"Get set");};
 $("#restartBtn").onclick=()=>{stopConfetti();showStart();};
 $("#countdown").addEventListener("click",e=>{if(!e.target.closest(".btn"))skipCountdown();});
-$("#breaker").addEventListener("click",e=>{if(!e.target.closest(".btn"))breakerGo();});
+$("#breaker").addEventListener("click",e=>{if(e.target.closest(".btn"))return;
+  if(Date.now()-brkAt<400)return;
+  if(e.clientX<innerWidth/2){clearTimeout(brkT);tapFx("prev");showDrill(i);}else{breakerGo();}});
 $("#fsBtn").onclick=()=>{const el=document.documentElement;if(!document.fullscreenElement){(el.requestFullscreen||el.webkitRequestFullscreen||(()=>{})).call(el);}else{(document.exitFullscreen||document.webkitExitFullscreen||(()=>{})).call(document);}};
 let wl=null;async function wake(){try{if("wakeLock"in navigator)wl=await navigator.wakeLock.request("screen");}catch(e){}}
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"){wake();if(vid.paused)vid.play().catch(()=>{});const bg=$("#bgvid");if(bg&&bg.paused)bg.play().catch(()=>{});}});
