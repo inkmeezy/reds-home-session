@@ -1,4 +1,4 @@
-const CACHE="reds-1192624dd1";
+const CACHE="reds-f90d4ace36";
 const CORE=["./","./index.html","./manifest.webmanifest",
  "./icons/icon-192.png","./icons/icon-512.png","./icons/maskable-512.png",
  "./icons/apple-touch-180.png","./icons/favicon-64.png"];
